@@ -1,128 +1,124 @@
-create database excel;
-use excel;
+Create database andreOligay;
+use andreOligay;
 
-CREATE TABLE clientes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    idade INT,
-    email varchar(100),
-    telefone varchar(100),
-    cidade varchar(100)
-);
-
-INSERT INTO clientes (nome, idade, email, telefone, cidade) 
-VALUES
-('João Silva', 30, 'joao@gmail.com', '11988887777', 'São Paulo'),
-('Maria Oliveira', 25, 'maria@gmail.com', '11997776666', 'Rio de Janeiro'),
-('Carlos Souza', 40, 'carlos@gmail.com', '11996665555', 'Belo Horizonte'),
-('Ana Costa', 22, 'ana@gmail.com', '11995554444', 'Curitiba'),
-('Pedro Lima', 35, 'pedro@gmail.com', '11994443333', 'Porto Alegre'),
-('Juliana Rocha', 28, 'juliana@gmail.com', '11993332222', 'Campinas'),
-('Rafael Alves', 31, 'rafael@gmail.com', '11992221111', 'São Paulo'),
-('Fernanda Santos', 27, 'fernanda@gmail.com', '11991110000', 'Salvador'),
-('Lucas Pereira', 45, 'lucas@gmail.com', '11989998888', 'Fortaleza'),
-('Camila Gomes', 29, 'camila@gmail.com', '11988881111', 'Recife'),
-('Bruno Martins', 33, 'bruno@gmail.com', '11987772222', 'Brasília'),
-('Patrícia Nunes', 26, 'patricia@gmail.com', '11986663333', 'Manaus'),
-('Diego Ferreira', 38, 'diego@gmail.com', '11985554444', 'Natal'),
-('Aline Barros', 24, 'aline@gmail.com', '11984445555', 'Florianópolis'),
-('Thiago Mendes', 36, 'thiago@gmail.com', '11983336666', 'São Paulo');
-
-CREATE TABLE produtos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
+CREATE TABLE vendas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    produto VARCHAR(50),
+    categoria VARCHAR(50),
+    vendedor VARCHAR(50),
+    quantidade INT,
     preco DECIMAL(10,2),
-    categoria varchar(100),
-    estoque int
+    cidade VARCHAR(50),
+    data_venda DATE
 );
 
-INSERT INTO produtos (nome, preco, categoria, estoque) VALUES
-('Notebook Dell', 3500.00, 'Eletrônicos', 10),
-('Mouse Logitech', 80.00, 'Periféricos', 50),
-('Teclado Mecânico', 250.00, 'Periféricos', 30),
-('Monitor LG', 900.00, 'Eletrônicos', 15),
-('Cadeira Gamer', 1200.00, 'Móveis', 8),
-('Mesa Escritório', 600.00, 'Móveis', 12),
-('Smartphone Samsung', 2000.00, 'Eletrônicos', 20),
-('Fone Bluetooth', 150.00, 'Áudio', 40),
-('Caixa de Som', 300.00, 'Áudio', 25),
-('Impressora HP', 700.00, 'Eletrônicos', 10),
-('Tablet Lenovo', 1800.00, 'Eletrônicos', 18),
-('Carregador USB-C', 60.00, 'Acessórios', 100),
-('HD Externo 1TB', 400.00, 'Armazenamento', 22),
-('SSD 500GB', 350.00, 'Armazenamento', 35),
-('Webcam HD', 220.00, 'Periféricos', 28);
+
+INSERT INTO vendas (produto, categoria, vendedor, quantidade, preco, cidade, data_venda) 
+VALUES
+('Notebook', 'Informática', 'Carlos', 2, 3500.00, 'São Paulo', '2026-01-10'),
+('Mouse', 'Informática', 'Ana', 10, 80.00, 'Campinas', '2026-01-12'),
+('Teclado', 'Informática', 'Carlos', 5, 150.00, 'São Paulo', '2026-01-15'),
+('Celular', 'Eletrônicos', 'Marcos', 3, 2200.00, 'Rio de Janeiro', '2026-01-20'),
+('TV', 'Eletrônicos', 'Ana', 1, 4500.00, 'Campinas', '2026-01-22'),
+('Geladeira', 'Eletrodomésticos', 'Julia', 2, 3200.00, 'Curitiba', '2026-01-25'),
+('Fogão', 'Eletrodomésticos', 'Carlos', 1, 1800.00, 'São Paulo', '2026-01-28'),
+('Notebook', 'Informática', 'Julia', 1, 3700.00, 'Curitiba', '2026-02-01'),
+('Mouse', 'Informática', 'Marcos', 8, 90.00, 'Rio de Janeiro', '2026-02-03'),
+('TV', 'Eletrônicos', 'Carlos', 2, 4700.00, 'São Paulo', '2026-02-05'),
+('Celular', 'Eletrônicos', 'Ana', 4, 2100.00, 'Campinas', '2026-02-08'),
+('Teclado', 'Informática', 'Julia', 6, 140.00, 'Curitiba', '2026-02-10'),
+('Fogão', 'Eletrodomésticos', 'Marcos', 2, 1900.00, 'Rio de Janeiro', '2026-02-12'),
+('Geladeira', 'Eletrodomésticos', 'Ana', 1, 3300.00, 'Campinas', '2026-02-15'),
+('Notebook', 'Informática', 'Carlos', 3, 3600.00, 'São Paulo', '2026-02-18');
+
+-- 1. Liste todos os produtos e preços em ordem crescente de preço.
+
+select produto, preco
+from vendas
+order by preco ASC;
+
+-- 2. Liste os vendedores em ordem alfabética decrescente.
+
+select DISTINCT(vendedor)
+from vendas
+order by vendedor desc;
+
+-- 3. Mostre o maior preço cadastrado na tabela.
+
+select max(preco) AS Maior_Preco
+from vendas;
+
+-- 4. Mostre o menor preço cadastrado.
+
+select min(preco) AS Menor_Preco
+from vendas;
+
+-- 5. Calcule a média de preços dos produtos.
+
+select round(avg(preco), 2) AS Média_Preco
+from vendas;
+
+-- 6. Mostre a soma total das quantidades vendidas.
+
+select sum(preco) As Soma_Precos
+from vendas;
+
+-- 7. Conte quantas vendas foram realizadas.
+
+select count(*) AS Total
+from vendas;
+
+-- 8. Liste a quantidade total vendida por vendedor usando GROUP BY.
+
+select vendedor, sum(preco) AS Total_Vendido
+from vendas
+group by vendedor;
+
+-- 9. Mostre o valor médio dos produtos por categoria.
+
+select avg(preco) AS Média_categoria
+from vendas
+group by categoria;
+
+-- 10. Liste o maior preço de produto por categoria.
+
+select max(preco) AS Maior_categoria
+from vendas
+group by categoria;
 
 
+-- 11. Mostre quantas vendas cada cidade realizou.
 
-CREATE TABLE funcionarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    salario DECIMAL(10,2)
-);
+select count(*) AS Total_vendas
+from vendas
+group by cidade;
 
-INSERT INTO funcionarios (nome, salario) VALUES
-('Pedro Santos', 2500.00),
-('Juliana Lima', 3200.00),
-('Roberto Alves', 2800.00),
-('Fernanda Rocha', 3500.00),
-('Marcos Oliveira', 4200.00),
-('Carla Souza', 3900.00),
-('Rafael Lima', 3100.00),
-('Amanda Costa', 2700.00),
-('Bruno Almeida', 4500.00),
-('Patrícia Nunes', 3300.00),
-('Diego Ferreira', 3600.00),
-('Larissa Mendes', 2900.00),
-('Gustavo Martins', 4100.00),
-('Beatriz Rocha', 3800.00),
-('Eduardo Silva', 5000.00);
+-- 12. Liste o total arrecadado por vendedor usando:
+-- SUM(quantidade * preco)
+-- Ordene do maior para o menor valor arrecadado.
 
-select  count(salario) from funcionarios;
-select  sum(salario) from funcionarios AS Soma_salarios;
+select vendedor, SUM(quantidade * preco) AS Total_arrecadado
+from vendas
+group by vendedor
+order by Total_arrecadado DESC;
 
-Select max(salario) from funcionarios As Maior_salario;
-Select min(salario) from funcionarios As Menor_salario;
-    
 
-	select salario, if(salario > 3000, "Alto", 
-	if(salario >=2500, "Médio", "Baixo")) AS Condicao_Salario
-    from funcionarios;
-    
-    select idade, if(idade > 18, "Maior", 'Menor') AS Condicao_Idade
-    from clientes;
-    
-    set @valor_Alto = 2000;
-    select preco, if(preco >= @valor_Alto, "Alto", "Baixo")
-    from produtos;
-    
-    set @numero = 0;
-    select if(@numero > 0, "Positivo", 
-    if(@numero < 0, "Negativo", "Zero")) AS Numero
-    from produtos;
-    
-    select nome, salario, if(salario >= 3000, salario + (salario * 30/100), salario + (salario * 5/100)) 
-    AS Aumento
-    from funcionarios;
-    
-    select nome, idade, if( idade >= 18,
-    "Pode Comprar", "Não Compre") AS Status_Condicao
-    from clientes;
-    
-    select preco, if(preco >= 2000, "Promoção", "Não") AS Promoção
-    from produtos;
-    
-    set @a = 1;
-    select if(@a >= 9, 'Aprovado com sucesso', 
-    if(@b >= 5, "Aprovado",
-    if(@c < 5, "Reprovado", @d))) AS Média;
-    
-    set @valor = 2000;
-     select @valor AS Valor, if(@valor % 5 = 0, "multiplo de 5", "Nao multiplo") AS resultado;
-    
-    set @b = 10;
-    set @c = 7;
-	select if( @b > @c, " B é Maior", if (@c < @b, "Menor que B", if(@b < @c, "C é Maior", "Menor que C"))) AS classificação
-    from funcionarios;
-    
-    
+-- 13. Mostre a quantidade total vendida de cada produto.
+
+select produto, count(*) AS Total_vendida
+from vendas
+group by produto;
+
+-- 14. Liste as categorias e o total de produtos vendidos em cada uma, ordenando da maior para a menor quantidade.
+
+select categoria, count(*) AS Total_produto
+from vendas
+group by categoria
+order by Total_produto DESC;
+
+-- 15. Mostre a média de preços dos produtos por cidade e ordene pelo maior valor médio.
+
+select cidade, ROUND(avg(preco), 2) AS Média_produto 
+from vendas
+group by cidade
+order by Média_produto DESC;
